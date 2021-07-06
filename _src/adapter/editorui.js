@@ -36,6 +36,7 @@
     map: "~/dialogs/map/map.html",
     gmap: "~/dialogs/gmap/gmap.html",
     insertvideo: "~/dialogs/video/video.html",
+    'insertaudio':'~/dialogs/audio/audio.html',
     help: "~/dialogs/help/help.html",
     preview: "~/dialogs/preview/preview.html",
     emotion: "~/dialogs/emotion/emotion.html",
@@ -92,7 +93,8 @@
     "splittocells",
     "mergecells",
     "deletetable",
-    "drafts"
+      "drafts",
+    "insertaudio"
   ];
 
   for (var i = 0, ci; (ci = btnCmds[i++]); ) {
@@ -240,7 +242,8 @@
       "gmap",
       "insertframe",
       "wordimage",
-      "insertvideo",
+        "insertvideo",
+      "insertaudio",
       "insertframe",
       "edittip",
       "edittable",

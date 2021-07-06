@@ -25,7 +25,7 @@ UE.I18N['zh-cn'] = {
         'imageleft':'左浮动', 'imageright':'右浮动', 'attachment':'附件', 'imagecenter':'居中', 'wordimage':'图片转存',
         'lineheight':'行间距','edittip' :'编辑提示','customstyle':'自定义标题', 'autotypeset':'自动排版',
         'webapp':'百度应用','touppercase':'字母大写', 'tolowercase':'字母小写','background':'背景','template':'模板','scrawl':'涂鸦',
-        'music':'音乐','inserttable':'插入表格','drafts': '从草稿箱加载', 'charts': '图表'
+        'music':'音乐','inserttable':'插入表格','drafts': '从草稿箱加载', 'charts': '图表','insertaudio':'音频'
     },
     'insertorderedlist':{
         'num':'1,2,3...',
@@ -665,5 +665,42 @@ UE.I18N['zh-cn'] = {
     'autosave': {
         'saving':'保存中...',
         'success':'本地保存成功'
-    }
+    },
+    'insertaudio' : {
+        'static' : {
+            'lang_tab_remote' : "插入音频",
+            'lang_tab_upload' : "上传音频",
+        },
+        'uploadSelectFile' : '点击选择音频文件',
+        'uploadAddFile' : '继续添加',
+        'uploadStart' : '开始上传',
+        'uploadPause' : '暂停上传',
+        'uploadContinue' : '继续上传',
+        'uploadCancel' : '取消上传',
+        'uploadRetry' : '重试上传',
+        'uploadDelete' : '删除',
+        'uploadTurnLeft' : '向左旋转',
+        'uploadTurnRight' : '向右旋转',
+        'uploadPreview' : '预览中',
+        'uploadNoPreview' : '不能预览',
+        'updateStatusReady' : '选中_个音频文件，共_KB。',
+        'updateStatusConfirm' : '已成功上传_个音频文件，_个音频文件上传失败',
+        'updateStatusFinish' : '共_个（_KB），_个上传成功',
+        'updateStatusError' : '，_个音频文件上传失败。',
+        'errorNotSupport' : 'WebUploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器。',
+        'errorLoadConfig' : '后端配置项没有正常加载，上传插件不能正常使用！',
+        'errorExceedSize' : '文件大小超出',
+        'errorFileType' : '文件格式不允许',
+        'errorInterrupt' : '文件传输中断',
+        'errorUploadRetry' : '上传失败，请重试',
+        'errorHttp' : 'http请求错误',
+        'errorServerUpload' : '服务器返回出错',
+        'remoteLockError' : "宽高不正确,不能所定比例",
+        'numError' : "请输入正确的长度或者宽度值！例如：123，400",
+        'audioUrlError' : "不允许的音频格式或者图片域！",
+        'audioLoadError' : "音频加载失败！请检查链接地址或网络状态！",
+        'searchRemind' : "请输入搜索关键词",
+        'searchLoading' : "音频加载中，请稍后……",
+        'searchRetry' : " :( ，抱歉，没有找到音频！请重试一次！"
+    },
 };

@@ -181,9 +181,12 @@ UE.plugins["paste"] = function() {
           root.removeChild(br);
         }
         utils.each(me.body.querySelectorAll("div"), function(node) {
-          if (domUtils.isEmptyBlock(node)) {
-            domUtils.remove(node, true);
-          }
+        //   if (domUtils.isEmptyBlock(node)) {
+        //     domUtils.remove(node, true);
+        //   }
+        if (domUtils.isEmptyBlock(node) && node.className != 'progress-bar-bg' && node.className != 'progressBar') {
+            domUtils.remove(node,true)
+         }
         });
       }
       html = { html: root.toHtml() };

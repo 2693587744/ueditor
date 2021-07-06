@@ -251,7 +251,7 @@
           return baidu.editor.ui.Popup.prototype.queryAutoHide.call(this, el);
         }
       });
-      popup.render();
+      //popup.render();
       if (editor.options.imagePopup) {
         editor.addListener("mouseover", function(t, evt) {
           evt = evt || window.event;
@@ -275,11 +275,11 @@
                 "</span></nobr>"
             );
             if (html) {
-              popup.getDom("content").innerHTML = html;
-              popup.anchorEl = el;
-              popup.showAnchor(popup.anchorEl);
+            //   popup.getDom("content").innerHTML = html;
+            //   popup.anchorEl = el;
+            //   popup.showAnchor(popup.anchorEl);
             } else {
-              popup.hide();
+            //   popup.hide();
             }
           }
         });
@@ -393,17 +393,17 @@
                   editor.getLang("clear") +
                   "</span></nobr>"
               );
-              popup.showAnchor(link);
+              //popup.showAnchor(link);
             }
           }
 
-          if (html) {
-            popup.getDom("content").innerHTML = html;
-            popup.anchorEl = img || link;
-            popup.showAnchor(popup.anchorEl);
-          } else {
-            popup.hide();
-          }
+        //   if (html) {
+        //     popup.getDom("content").innerHTML = html;
+        //     popup.anchorEl = img || link;
+        //     popup.showAnchor(popup.anchorEl);
+        //   } else {
+        //     popup.hide();
+        //   }
         });
       }
     },
