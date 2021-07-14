@@ -270,13 +270,37 @@
 
         var conUrl = convert_url(url);
 
-        $G("preview").innerHTML = '<div class="previewMsg"><span>'+lang.urlError+'</span></div>'+
-        '<embed class="previewVideo" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
-            ' src="' + conUrl + '"' +
-            ' width="' + 420  + '"' +
-            ' height="' + 280  + '"' +
-            ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >' +
-        '</embed>';
+        // $G("preview").innerHTML = '<div class="previewMsg"><span>'+lang.urlError+'</span></div>'+
+        // '<embed class="previewVideo" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"' +
+        //     ' src="' + conUrl + '"' +
+        //     ' width="' + 420  + '"' +
+        //     ' height="' + 280  + '"' +
+        //     ' wmode="transparent" play="true" loop="false" menu="false" allowscriptaccess="never" allowfullscreen="true" >' +
+        // '</embed>';
+        var classname=''
+
+        var ext = url.substr(url.lastIndexOf(".") + 1);
+        if (ext == "ogv") ext = "ogg";
+        str =
+          "<video webkit-playsinline playsinline preload='none' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
+          ' class="' +
+          classname +
+          ' video-js" ' +
+         // (align ? ' style="float:' + align + '"' : "") +
+          ' controls preload="none" ' +
+          //width +
+          //'" height="' +
+          //height +
+          '" src="' +
+          url +
+          '" data-setup="{}">' +
+          '<source src="' +
+          url +
+          '" type="video/' +
+          ext +
+          '" /></video>';
+
+        $G("preview").innerHTML = str;
     }
 
 
@@ -600,13 +624,15 @@
                         /* 上传中 */
                         case 'uploading':
                             $progress.show(); $info.hide();
-                            $upload.text(lang.uploadPause);
+                            //$upload.text(lang.uploadPause);
+                            $upload.text('上传中');
                             break;
 
                         /* 暂停上传 */
                         case 'paused':
                             $progress.show(); $info.hide();
-                            $upload.text(lang.uploadContinue);
+                            //$upload.text(lang.uploadContinue);
+                            $upload.text('上传中');
                             break;
 
                         case 'confirm':

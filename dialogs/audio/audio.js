@@ -79,7 +79,7 @@
                     // }
                     break;
             }
-
+            //debugger
             if (list) {
                 editor.execCommand('insertaudio', list);
                 remote && editor.fireEvent("catchRemoteAudio");
@@ -164,7 +164,7 @@
                 pick: {
                     id: '#filePickerReady',
                     label: lang.uploadSelectFile,
-                    multiple: false // 限制为单选
+                    multiple: true // 限制为单选
                 },
                 accept: {
                     title: 'Audios',
@@ -175,7 +175,7 @@
                 server: actionUrl,
                 fileVal: editor.getOpt('audioFieldName'),
                 duplicate: false,
-                fileNumLimit: 1,    // 限制为单个文件
+                fileNumLimit: 10,    // 限制为单个文件
                 fileSingleSizeLimit: audioMaxSize    // 默认 30 M
             });
             uploader.addButton({
@@ -192,6 +192,7 @@
             function addFile(file) {
                 var $li = $('<li id="' + file.id + '">' +
                     '<p class="title">' + file.name + '</p>' +
+                    '<p class="imgWrap notimage"><i class="file-preview file-type-mp3"></i></p>'+
                     '<p class="progress"><span></span></p>' +
                     '</li>'),
 
@@ -601,7 +602,9 @@
                 }
                 //修改END
                 list.push({
-                    src: prefix + data.key,
+                    url: prefix + data.url,
+                    title: data.title,
+                    original:data.original,
                     key: + new Date()   // 以时间戳作为音频控件父div的id
                 });
             }

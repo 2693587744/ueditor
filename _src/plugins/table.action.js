@@ -155,7 +155,15 @@ UE.plugins["table"] = function() {
           "caption",
           true
         ),
-          range = me.selection.getRange();
+            range = me.selection.getRange();
+
+            var ele = evt.srcElement||evt.target;
+            if (ele) {
+                if (ele.tagName == 'VIDEO'||ele.tagName =='AUDIO') {
+                    domUtils.remove(ele);
+                }
+            }
+
         if (range.collapsed && caption && isEmptyBlock(caption)) {
           me.fireEvent("saveScene");
           var table = caption.parentNode;
@@ -176,6 +184,13 @@ UE.plugins["table"] = function() {
           }
           me.fireEvent("saveScene");
           domUtils.preventDefault(evt);
+        }
+
+        var ele = evt.srcElement||evt.target;
+        if (ele) {
+            if (ele.tagName == 'VIDEO'||ele.tagName =='AUDIO') {
+                domUtils.remove(ele);
+            }
         }
       }
       if (keyCode == 13) {

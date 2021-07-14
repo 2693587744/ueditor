@@ -112,7 +112,7 @@ div.edui-box {
     -webkit-user-select: none;
     -moz-user-select: none;
     padding: 0px;
-    overflow: hidden;
+    /* overflow: hidden; */
     zoom: 1;
     width: auto;
     height: auto;
@@ -128,7 +128,7 @@ div.edui-box {
 
 .edui-white .edui-editor {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     border: 1px solid #ccc;
     border-radius: 3px;
     -webkit-box-sizing: content-box;
@@ -685,9 +685,6 @@ div.edui-box {
     background-position: -440px -20px
 }
 
-.edui-white .edui-for-previewh5 .edui-icon {
-    /* background-position: -420px -20px */
-}
 
 .edui-white .edui-for-selectall .edui-icon {
     background-position: 2px -1175px
@@ -1958,6 +1955,15 @@ input.edui-white {
 .edui-white .edui-box.edui-for-chuangkit {
     overflow: visible
 }
+/* .edui-for-previewh5{
+    position: absolute;
+    right: -40px;
+    top: 10px;
+} */
+.edui-white .edui-for-previewh5 .edui-icon{
+    background-image: url('../images/previewh5.png')!important;
+    background-repeat: no-repeat;
+}
 
 .edui-button.edui-for-chuangkit.active:before,
 .edui-button.edui-for-chuangkit.active:after {
@@ -1975,4 +1981,45 @@ input.edui-white {
     background-color: #ffffff;
     font-size: 12px;
     color: #000000;
+}
+
+
+/**预览页面**/
+div.preview-layer{
+	display: none;
+	position: relative;
+
+}
+div.preview-layer .preview-bg{
+	position: fixed;
+	width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+	z-index:999;
+    background-color: #000;
+	opacity:0.7;
+}
+
+div.preview-layer .preview-phone{
+	position: fixed;
+	width: 410px;
+	height: 840px;
+	background: url(../images/iphone-bg.png) no-repeat no-repeat;
+	z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+#preview-html{
+	position: absolute;
+	width:365px;
+	height: 643px;
+	top:98px;
+	left:24px;
+    border: 1px solid #9c9c9c;
+	border-radius: 5px;
+	outline: none;
+	background-color: #fff;
 }

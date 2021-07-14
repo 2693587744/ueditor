@@ -43,7 +43,7 @@ UE.plugins['audio'] = function () {
      * editor.execCommand( 'insertaudio', audioObjs );
      * ```
      */
-    UE.commands["insertaudio"] = {
+    me.commands["insertaudio"] = {
         execCommand: function (cmd, audioObjs) {
             audioObjs = utils.isArray(audioObjs) ? audioObjs : [audioObjs];
             if (!audioObjs) {
@@ -55,9 +55,9 @@ UE.plugins['audio'] = function () {
                 var src = createAudioHtml(audioObjs[i].key, audioObjs[i].url, audioObjs[i].title);
                 html.push(src);
             }
-            me.execCommand("inserthtml", html.join(""),true);
+            me.execCommand("inserthtml", html.join(""), true);
             // 初始化音频控件
-            initAudio(audioObjs);
+            //initAudio(audioObjs);
             me.focus();
         }
     };
@@ -70,23 +70,25 @@ UE.plugins['audio'] = function () {
      * @param {string} audioTitle - 音频标题
      */
     function createAudioHtml(audioDivId, audioSrc, audioTitle) {
-        var src = '<div class="audio-wrapper" id="' + audioDivId + '" style="background-color: #fcfcfc;margin: 10px auto;max-width: 670px;height: 90px;border: 1px solid #e0e0e0;">'
-            + '<audio><source src="' + audioSrc + '"></audio>'
-            + '<div class="audio-left" style="float: left;text-align: center;width: 22%;height: 100%;">'
-            + '<img src="' + playicon + '" class="playicon" style="width: 40px;position: relative;top: 25px;margin: 0;display: initial;cursor: pointer;"/>'
-            + '<img src="' + pauseicon + '" class="pauseicon" style="width: 40px;position: relative;top: 25px;margin: 0;display: none;cursor: pointer;"/>'
-            + '</div>'
-            + '<div class="audio-right" style="margin-right: 5%;float: right;width: 73%;height: 100%;">'
-            + '<p class="audio-title" style="max-width: 536px;font-size: 15px;height: 35%;margin: 8px 0;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">' + audioTitle + '</p>'
-            + '<div class="progress-bar-bg" style="background-color: #d9d9d9;position: relative;height: 2px;cursor: pointer;">'
-            + '<span class="progressDot" style="content: \' \';width: 12px;height: 12px;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;background-color: #06b4e9;position: absolute;left: 0;top: -5px;margin-left: 0px;cursor: pointer;"></span>'
-            + '<div class="progressBar" style="background-color: #649fec;width: 0;height: 2px;"></div>'
-            + '</div>'
-            + '<div class="audio-time" style="overflow: hidden;margin-top: -1px;">'
-            + '<span class="audioCurTime" style="float: left;margin-top:10px;font-size: 12px;color: #969696">00:00</span><span class="audioTotalTime" style="float: right;margin-top:10px;font-size: 12px;color: #969696">00:00</span>'
-            + '</div>'
-            + '</div>'
-            + '</div><br/>';
+        //debugger
+        var src = '<p class="edui-audio"><audio src="' + audioSrc + '" controls></audio><span style="display:none;">auido</span></p>';
+        // var src = '<div class="audio-wrapper" id="' + audioDivId + '" style="background-color: #fcfcfc;margin: 10px auto;max-width: 670px;height: 90px;border: 1px solid #e0e0e0;">'
+        //     + '<audio><source src="' + audioSrc + '"></audio>'
+        //     + '<div class="audio-left" style="float: left;text-align: center;width: 22%;height: 100%;">'
+        //     + '<img src="' + playicon + '" class="playicon" style="width: 40px;position: relative;top: 25px;margin: 0;display: initial;cursor: pointer;"/>'
+        //     + '<img src="' + pauseicon + '" class="pauseicon" style="width: 40px;position: relative;top: 25px;margin: 0;display: none;cursor: pointer;"/>'
+        //     + '</div>'
+        //     + '<div class="audio-right" style="margin-right: 5%;float: right;width: 73%;height: 100%;">'
+        //     + '<p class="audio-title" style="max-width: 536px;font-size: 15px;height: 35%;margin: 8px 0;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">' + audioTitle + '</p>'
+        //     + '<div class="progress-bar-bg" style="background-color: #d9d9d9;position: relative;height: 2px;cursor: pointer;">'
+        //     + '<span class="progressDot" style="content: \' \';width: 12px;height: 12px;border-radius: 50%;-moz-border-radius: 50%;-webkit-border-radius: 50%;background-color: #06b4e9;position: absolute;left: 0;top: -5px;margin-left: 0px;cursor: pointer;"></span>'
+        //     + '<div class="progressBar" style="background-color: #06b4e9;width: 0;height: 2px;"></div>'
+        //     + '</div>'
+        //     + '<div class="audio-time" style="overflow: hidden;margin-top: -1px;">'
+        //     + '<span class="audioCurTime" style="float: left;margin-top:10px;font-size: 12px;color: #969696">00:00</span><span class="audioTotalTime" style="float: right;margin-top:10px;font-size: 12px;color: #969696">00:00</span>'
+        //     + '</div>'
+        //     + '</div>'
+        //     + '</div><br/>';
         return src;
     }
 

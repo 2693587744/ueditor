@@ -244,7 +244,8 @@ UE.commands["insertimage"] = {
       var html = [],
         str = "",
         ci;
-      ci = opt[0];
+        ci = opt[0];
+
       if (opt.length == 1) {
         str =
           '<img src="' +
@@ -273,11 +274,12 @@ UE.commands["insertimage"] = {
       } else {
         for (var i = 0; (ci = opt[i++]); ) {
           str =
-            "<p " +
-            (ci["floatStyle"] == "center"
-              ? 'style="text-align: center" '
-              : "") +
-            '><img src="' +
+            //"<p " +
+            // (ci["floatStyle"] == "center"
+            //   ? 'style="text-align: center" '
+            //   : "") +
+            //     '>'
+            '<img src="' +
             ci.src +
             '" ' +
             (ci.width ? 'width="' + ci.width + '" ' : "") +
@@ -290,7 +292,7 @@ UE.commands["insertimage"] = {
             (ci.border || "") +
             '" ' +
             (ci.title ? ' title="' + ci.title + '"' : "") +
-            " /></p>";
+            " />";//</p>
           html.push(str);
         }
       }

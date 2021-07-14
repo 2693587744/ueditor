@@ -59,16 +59,16 @@ UE.plugins["video"] = function() {
         var ext = url.substr(url.lastIndexOf(".") + 1);
         if (ext == "ogv") ext = "ogg";
         str =
-          "<video" +
+          "<video webkit-playsinline playsinline preload='none' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
           (id ? ' id="' + id + '"' : "") +
           ' class="' +
           classname +
           ' video-js" ' +
           (align ? ' style="float:' + align + '"' : "") +
-          ' controls preload="none" width="' +
-          width +
-          '" height="' +
-          height +
+          ' controls preload="none" ' +
+          //width +
+          //'" height="' +
+          //height +
           '" src="' +
           url +
           '" data-setup="{}">' +
@@ -76,7 +76,7 @@ UE.plugins["video"] = function() {
           url +
           '" type="video/' +
           ext +
-          '" /></video>';
+          '" /></video><span style="display:none;">video</span><br/>';
         break;
     }
     return str;
@@ -116,10 +116,10 @@ UE.plugins["video"] = function() {
   }
 
   me.addOutputRule(function(root) {
-    switchImgAndVideo(root, true);
+    //switchImgAndVideo(root, true);
   });
   me.addInputRule(function(root) {
-    switchImgAndVideo(root);
+    //switchImgAndVideo(root);
   });
 
   /**
@@ -212,7 +212,7 @@ UE.plugins["video"] = function() {
             id + i,
             null,
             cl,
-            "image"
+            "video"
           )
         );
       }

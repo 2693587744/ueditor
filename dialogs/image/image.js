@@ -34,6 +34,7 @@
         } else {
             setTabFocus('upload');
         }
+
     }
 
     /* 初始化tabbody */
@@ -859,6 +860,7 @@
                 this.isLoadingData = true;
                 var url = editor.getActionUrl(editor.getOpt('imageManagerActionName')),
                     isJsonp = utils.isCrossDomainUrl(url);
+                $G("public_material").setAttribute("href", "/nlive/ShareMaterial?zid=" + (editor.queryCommandValue('serverparam') || {}).zbid);
                 ajax.request(url, {
                     'timeout': 100000,
                     'dataType': isJsonp ? 'jsonp':'',

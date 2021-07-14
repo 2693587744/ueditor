@@ -449,7 +449,7 @@
             ? "<style>" + options.initialStyle + "</style>"
             : "") +
           "</head>" +
-          "<body class='view' ></body>" +
+          "<body class='view editor-view' ></body>" +
           "<script type='text/javascript' " +
           (ie ? "defer='defer'" : "") +
           " id='_initialScript'>" +

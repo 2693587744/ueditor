@@ -86,7 +86,7 @@ UE.ajax = (function () {
 
         var submitStr = json2str(ajaxOpts); // { name:"Jim",city:"Beijing" } --> "name=Jim&city=Beijing"
         //如果用户直接通过data参数传递json对象过来，则也要将此json对象转化为字符串
-        if (ajaxOptions.processData) {
+        if (ajaxOpts.processData) {
             if (!utils.isEmptyObject(ajaxOpts.data)) {
                 submitStr += (submitStr ? "&" : "") + json2str(ajaxOpts.data);
             }
@@ -117,7 +117,7 @@ UE.ajax = (function () {
         };
         if (method == "POST") {
             //传 json formdata
-            if (ajaxOptions.processData) {
+            if (ajaxOpts.processData) {
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.send(submitStr);
             }

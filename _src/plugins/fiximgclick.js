@@ -263,13 +263,14 @@ UE.plugins["fiximgclick"] = (function() {
               editorPos.x -
               parseInt(resizer.style.borderLeftWidth) +
               "px",
-          top:
-            iframePos.y +
-              imgPos.y -
-              me.editor.document.body.scrollTop -
-              editorPos.y -
-              parseInt(resizer.style.borderTopWidth) +
-              "px"
+        //   top:
+        //     iframePos.y +
+        //       imgPos.y -
+        //       me.editor.document.body.scrollTop -
+        //       editorPos.y -
+        //       parseInt(resizer.style.borderTopWidth) +
+        //       "px"
+        'top': iframePos.y + imgPos.y - me.editor.window.scrollY - editorPos.y - parseInt(resizer.style.borderTopWidth) + 'px'
         });
       }
     };
