@@ -234,7 +234,7 @@
                     /* 检查文件格式 */
                     if (!file.ext || acceptExtensions.indexOf(file.ext.toLowerCase()) == -1) {
                         showError('not_allow_type');
-                        uploader.removeFile(file);
+                        //uploader.removeFile(file);
                     }
                 }
 
@@ -471,8 +471,15 @@
             });
 
             uploader.on('fileDequeued', function (file) {
-                fileCount--;
+                if (file.ext && acceptExtensions.indexOf(file.ext.toLowerCase()) != -1 && file.size <= audioMaxSize) {
+                    fileCount--;
+                    fileSize -= file.size;
+                }
+                if (fileCount < 0)
+                    fileCount = 0;
                 fileSize -= file.size;
+                if (fileSize < 0)
+                    fileSize = 0;
 
                 removeFile(file);
                 updateTotalProgress();
@@ -560,6 +567,8 @@
                 if ($(this).hasClass('disabled')) {
                     return false;
                 }
+                if (fileCount <= 0)
+                    return false;
 
                 if (state === 'ready') {
                     uploader.upload();

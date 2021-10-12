@@ -107,3 +107,8 @@ ueditor for nodejs 参考[https://github.com/netpi/ueditor](https://github.com/n
 email：[ueditor@baidu.com](mailto://email:ueditor@baidu.com "发邮件给ueditor开发组")
 
 issue：[github issue](http://github.com/fex-team/ueditor/issues "ueditor 论坛")
+
+
+
+打包
+grunt --encode=utf8 --server=net

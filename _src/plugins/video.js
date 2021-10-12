@@ -59,13 +59,13 @@ UE.plugins["video"] = function() {
         var ext = url.substr(url.lastIndexOf(".") + 1);
         if (ext == "ogv") ext = "ogg";
         str =
-          "<video webkit-playsinline playsinline preload='none' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
+          "<video webkit-playsinline playsinline preload='auto' width='100%' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
           (id ? ' id="' + id + '"' : "") +
           ' class="' +
           classname +
           ' video-js" ' +
           (align ? ' style="float:' + align + '"' : "") +
-          ' controls preload="none" ' +
+          //' controls preload="none" ' +
           //width +
           //'" height="' +
           //height +
@@ -74,9 +74,7 @@ UE.plugins["video"] = function() {
           '" data-setup="{}">' +
           '<source src="' +
           url +
-          '" type="video/' +
-          ext +
-          '" /></video><span style="display:none;">video</span><br/>';
+          '" type="video/mp4" />video</video>  <br/> ';
         break;
     }
     return str;
@@ -217,13 +215,13 @@ UE.plugins["video"] = function() {
         );
       }
       me.execCommand("inserthtml", html.join(""), true);
-      var rng = this.selection.getRange();
-      for (var i = 0, len = videoObjs.length; i < len; i++) {
-        var img = this.document.getElementById("tmpVedio" + i);
-        domUtils.removeAttributes(img, "id");
-        rng.selectNode(img).select();
-        me.execCommand("imagefloat", videoObjs[i].align);
-      }
+    //   var rng = this.selection.getRange();
+    //   for (var i = 0, len = videoObjs.length; i < len; i++) {
+    //     var img = this.document.getElementById("tmpVedio" + i);
+    //     domUtils.removeAttributes(img, "id");
+    //     rng.selectNode(img).select();
+    //     me.execCommand("imagefloat", videoObjs[i].align);
+    //   }
 
       me.fireEvent("afterinsertvideo", videoObjs);
     },

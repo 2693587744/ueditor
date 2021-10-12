@@ -282,12 +282,12 @@
         var ext = url.substr(url.lastIndexOf(".") + 1);
         if (ext == "ogv") ext = "ogg";
         str =
-          "<video webkit-playsinline playsinline preload='none' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
+          "<video webkit-playsinline playsinline preload='auto' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
           ' class="' +
           classname +
           ' video-js" ' +
          // (align ? ' style="float:' + align + '"' : "") +
-          ' controls preload="none" ' +
+         // ' controls preload="auto" ' +
           //width +
           //'" height="' +
           //height +
@@ -413,6 +413,11 @@
                     id: '#filePickerReady',
                     label: lang.uploadSelectFile
                 },
+                accept: {
+                    title: 'Videos',
+                    extensions: acceptExtensions,
+                    mimeTypes: 'video/mp4'
+                },
                 swf: '../../third-party/webuploader/Uploader.swf',
                 server: actionUrl,
                 fileVal: editor.getOpt('videoFieldName'),
@@ -432,6 +437,8 @@
 
             // 当有文件添加进来时执行，负责view的创建
             function addFile(file) {
+                if (file&&file.size == 0)
+                    return;
                 var $li = $('<li id="' + file.id + '">' +
                         '<p class="title">' + file.name + '</p>' +
                         '<p class="imgWrap"></p>' +
@@ -706,8 +713,10 @@
             });
 
             uploader.on('fileDequeued', function (file) {
-                fileCount--;
-                fileSize -= file.size;
+                if (file.ext && acceptExtensions.indexOf(file.ext.toLowerCase()) != -1 && file.size <= fileMaxSize) {
+                    fileCount--;
+                    fileSize -= file.size;
+                }
 
                 removeFile(file);
                 updateTotalProgress();
@@ -788,6 +797,8 @@
                 if ($(this).hasClass('disabled')) {
                     return false;
                 }
+                if (fileCount <= 0)
+                    return;
 
                 if (state === 'ready') {
                     uploader.upload();
