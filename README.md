@@ -112,3 +112,6 @@ issue：[github issue](http://github.com/fex-team/ueditor/issues "ueditor 论坛
 
 打包
 grunt --encode=utf8 --server=net
+
+开发
+grunt --encode=utf8 --server=net --watch

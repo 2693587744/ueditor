@@ -286,7 +286,8 @@ module.exports = function (grunt) {
             "copy:" + server,
             "copy:demo",
             "replace:demo",
-            "clean"
+            "clean",
+            "watch"
         ];
 
         if (encode === "gbk") {

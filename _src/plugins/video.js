@@ -4,7 +4,7 @@
  * @since 1.2.6.1
  */
 
-UE.plugins["video"] = function() {
+UE.plugins["video"] = function () {
   var me = this;
 
   /**
@@ -16,7 +16,7 @@ UE.plugins["video"] = function() {
      * @param toEmbed 是否以flash代替显示
      * @param addParagraph  是否需要添加P 标签
      */
-  function creatInsertStr(url, width, height, id, align, classname, type) {
+  function creatInsertStr(url, width, height, id, align, classname, type, poster) {
     var str;
     switch (type) {
       case "image":
@@ -59,8 +59,9 @@ UE.plugins["video"] = function() {
         var ext = url.substr(url.lastIndexOf(".") + 1);
         if (ext == "ogv") ext = "ogg";
         str =
-          "<video webkit-playsinline playsinline preload='auto' width='100%' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
+          "<video webkit-playsinline playsinline preload='none' width='100%' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
           (id ? ' id="' + id + '"' : "") +
+          (poster ? ' poster="' + poster + '"' : "") +
           ' class="' +
           classname +
           ' video-js" ' +
@@ -83,7 +84,7 @@ UE.plugins["video"] = function() {
   function switchImgAndVideo(root, img2video) {
     utils.each(
       root.getNodesByTagName(img2video ? "img" : "embed video"),
-      function(node) {
+      function (node) {
         var className = node.getAttr("class");
         if (className && className.indexOf("edui-faked-video") != -1) {
           var html = creatInsertStr(
@@ -113,10 +114,10 @@ UE.plugins["video"] = function() {
     );
   }
 
-  me.addOutputRule(function(root) {
+  me.addOutputRule(function (root) {
     //switchImgAndVideo(root, true);
   });
-  me.addInputRule(function(root) {
+  me.addInputRule(function (root) {
     //switchImgAndVideo(root);
   });
 
@@ -187,7 +188,7 @@ UE.plugins["video"] = function() {
      * ```
      */
   me.commands["insertvideo"] = {
-    execCommand: function(cmd, videoObjs, type) {
+    execCommand: function (cmd, videoObjs, type) {
       videoObjs = utils.isArray(videoObjs) ? videoObjs : [videoObjs];
 
       if (me.fireEvent("beforeinsertvideo", videoObjs) === true) {
@@ -210,22 +211,23 @@ UE.plugins["video"] = function() {
             id + i,
             null,
             cl,
-            "video"
+            "video",
+            vi.poster || ''
           )
         );
       }
       me.execCommand("inserthtml", html.join(""), true);
-    //   var rng = this.selection.getRange();
-    //   for (var i = 0, len = videoObjs.length; i < len; i++) {
-    //     var img = this.document.getElementById("tmpVedio" + i);
-    //     domUtils.removeAttributes(img, "id");
-    //     rng.selectNode(img).select();
-    //     me.execCommand("imagefloat", videoObjs[i].align);
-    //   }
+      //   var rng = this.selection.getRange();
+      //   for (var i = 0, len = videoObjs.length; i < len; i++) {
+      //     var img = this.document.getElementById("tmpVedio" + i);
+      //     domUtils.removeAttributes(img, "id");
+      //     rng.selectNode(img).select();
+      //     me.execCommand("imagefloat", videoObjs[i].align);
+      //   }
 
       me.fireEvent("afterinsertvideo", videoObjs);
     },
-    queryCommandState: function() {
+    queryCommandState: function () {
       var img = me.selection.getRange().getClosedNode(),
         flag =
           img &&

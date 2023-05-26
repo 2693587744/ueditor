@@ -1,15 +1,15 @@
 //ui跟编辑器的适配層
 //那个按钮弹出是dialog，是下拉筐等都是在这个js中配置
 //自己写的ui也要在这里配置，放到baidu.editor.ui下边，当编辑器实例化的时候会根据ueditor.config中的toolbars找到相应的进行实例化
-(function() {
+(function () {
   var utils = baidu.editor.utils;
   var editorui = baidu.editor.ui;
   var _Dialog = editorui.Dialog;
   editorui.buttons = {};
 
-  editorui.Dialog = function(options) {
+  editorui.Dialog = function (options) {
     var dialog = new _Dialog(options);
-    dialog.addListener("hide", function() {
+    dialog.addListener("hide", function () {
       if (dialog.editor) {
         var editor = dialog.editor;
         try {
@@ -21,7 +21,7 @@
           } else {
             editor.focus();
           }
-        } catch (ex) {}
+        } catch (ex) { }
       }
     });
     return dialog;
@@ -36,7 +36,7 @@
     map: "~/dialogs/map/map.html",
     gmap: "~/dialogs/gmap/gmap.html",
     insertvideo: "~/dialogs/video/video.html",
-    'insertaudio':'~/dialogs/audio/audio.html',
+    'insertaudio': '~/dialogs/audio/audio.html',
     help: "~/dialogs/help/help.html",
     preview: "~/dialogs/preview/preview.html",
     emotion: "~/dialogs/emotion/emotion.html",
@@ -93,28 +93,28 @@
     "splittocells",
     "mergecells",
     "deletetable",
-      "drafts",
+    "drafts",
     "insertaudio"
   ];
 
-  for (var i = 0, ci; (ci = btnCmds[i++]); ) {
+  for (var i = 0, ci; (ci = btnCmds[i++]);) {
     ci = ci.toLowerCase();
-    editorui[ci] = (function(cmd) {
-      return function(editor) {
+    editorui[ci] = (function (cmd) {
+      return function (editor) {
         var ui = new editorui.Button({
           className: "edui-for-" + cmd,
           title:
             editor.options.labelMap[cmd] ||
-              editor.getLang("labelMap." + cmd) ||
-              "",
-          onclick: function() {
+            editor.getLang("labelMap." + cmd) ||
+            "",
+          onclick: function () {
             editor.execCommand(cmd);
           },
           theme: editor.options.theme,
           showText: false
         });
         editorui.buttons[cmd] = ui;
-        editor.addListener("selectionchange", function(
+        editor.addListener("selectionchange", function (
           type,
           causeByUi,
           uiReady
@@ -136,22 +136,22 @@
   }
 
   //清除文档
-  editorui.cleardoc = function(editor) {
+  editorui.cleardoc = function (editor) {
     var ui = new editorui.Button({
       className: "edui-for-cleardoc",
       title:
         editor.options.labelMap.cleardoc ||
-          editor.getLang("labelMap.cleardoc") ||
-          "",
+        editor.getLang("labelMap.cleardoc") ||
+        "",
       theme: editor.options.theme,
-      onclick: function() {
+      onclick: function () {
         if (confirm(editor.getLang("confirmClear"))) {
           editor.execCommand("cleardoc");
         }
       }
     });
     editorui.buttons["cleardoc"] = ui;
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       ui.setDisabled(editor.queryCommandState("cleardoc") == -1);
     });
     return ui;
@@ -165,25 +165,25 @@
   };
 
   for (var p in typeset) {
-    (function(cmd, val) {
-      for (var i = 0, ci; (ci = val[i++]); ) {
-        (function(cmd2) {
-          editorui[cmd.replace("float", "") + cmd2] = function(editor) {
+    (function (cmd, val) {
+      for (var i = 0, ci; (ci = val[i++]);) {
+        (function (cmd2) {
+          editorui[cmd.replace("float", "") + cmd2] = function (editor) {
             var ui = new editorui.Button({
               className: "edui-for-" + cmd.replace("float", "") + cmd2,
               title:
                 editor.options.labelMap[cmd.replace("float", "") + cmd2] ||
-                  editor.getLang(
-                    "labelMap." + cmd.replace("float", "") + cmd2
-                  ) ||
-                  "",
+                editor.getLang(
+                  "labelMap." + cmd.replace("float", "") + cmd2
+                ) ||
+                "",
               theme: editor.options.theme,
-              onclick: function() {
+              onclick: function () {
                 editor.execCommand(cmd, cmd2);
               }
             });
             editorui.buttons[cmd] = ui;
-            editor.addListener("selectionchange", function(
+            editor.addListener("selectionchange", function (
               type,
               causeByUi,
               uiReady
@@ -199,31 +199,31 @@
   }
 
   //字体颜色和背景颜色
-  for (var i = 0, ci; (ci = ["backcolor", "forecolor"][i++]); ) {
-    editorui[ci] = (function(cmd) {
-      return function(editor) {
+  for (var i = 0, ci; (ci = ["backcolor", "forecolor"][i++]);) {
+    editorui[ci] = (function (cmd) {
+      return function (editor) {
         var ui = new editorui.ColorButton({
           className: "edui-for-" + cmd,
           color: "default",
           title:
             editor.options.labelMap[cmd] ||
-              editor.getLang("labelMap." + cmd) ||
-              "",
+            editor.getLang("labelMap." + cmd) ||
+            "",
           editor: editor,
-          onpickcolor: function(t, color) {
+          onpickcolor: function (t, color) {
             editor.execCommand(cmd, color);
           },
-          onpicknocolor: function() {
+          onpicknocolor: function () {
             editor.execCommand(cmd, "default");
             this.setColor("transparent");
             this.color = "default";
           },
-          onbuttonclick: function() {
+          onbuttonclick: function () {
             editor.execCommand(cmd, this.color);
           }
         });
         editorui.buttons[cmd] = ui;
-        editor.addListener("selectionchange", function() {
+        editor.addListener("selectionchange", function () {
           ui.setDisabled(editor.queryCommandState(cmd) == -1);
         });
         return ui;
@@ -242,7 +242,7 @@
       "gmap",
       "insertframe",
       "wordimage",
-        "insertvideo",
+      "insertvideo",
       "insertaudio",
       "insertframe",
       "edittip",
@@ -257,14 +257,14 @@
   };
 
   for (var p in dialogBtns) {
-    (function(type, vals) {
-      for (var i = 0, ci; (ci = vals[i++]); ) {
+    (function (type, vals) {
+      for (var i = 0, ci; (ci = vals[i++]);) {
         //todo opera下存在问题
         if (browser.opera && ci === "searchreplace") {
           continue;
         }
-        (function(cmd) {
-          editorui[cmd] = function(editor, iframeUrl, title) {
+        (function (cmd) {
+          editorui[cmd] = function (editor, iframeUrl, title) {
             iframeUrl =
               iframeUrl ||
               (editor.options.iframeUrlMap || {})[cmd] ||
@@ -290,25 +290,25 @@
                   },
                   type == "ok"
                     ? {
-                        buttons: [
-                          {
-                            className: "edui-okbutton",
-                            label: editor.getLang("ok"),
-                            editor: editor,
-                            onclick: function() {
-                              dialog.close(true);
-                            }
-                          },
-                          {
-                            className: "edui-cancelbutton",
-                            label: editor.getLang("cancel"),
-                            editor: editor,
-                            onclick: function() {
-                              dialog.close(false);
-                            }
+                      buttons: [
+                        {
+                          className: "edui-okbutton",
+                          label: editor.getLang("ok"),
+                          editor: editor,
+                          onclick: function () {
+                            dialog.close(true);
                           }
-                        ]
-                      }
+                        },
+                        {
+                          className: "edui-cancelbutton",
+                          label: editor.getLang("cancel"),
+                          editor: editor,
+                          onclick: function () {
+                            dialog.close(false);
+                          }
+                        }
+                      ]
+                    }
                     : {}
                 )
               );
@@ -319,7 +319,7 @@
             var ui = new editorui.Button({
               className: "edui-for-" + cmd,
               title: title,
-              onclick: function() {
+              onclick: function () {
                 if (dialog) {
                   switch (cmd) {
                     case "wordimage":
@@ -336,6 +336,17 @@
                       }
 
                       break;
+                    case "insertvideo":
+                      console.log('insertvideo');
+                      if (window.VZAN_MaterialSelect) {
+                        window.VZAN_MaterialSelect.$emit('update:show', true);
+                        window.VZAN_CurrentEditor = editor;
+                      }
+                      else {
+                        dialog.render();
+                        dialog.open();
+                      }
+                      break;
                     default:
                       dialog.render();
                       dialog.open();
@@ -345,10 +356,10 @@
               theme: editor.options.theme,
               disabled:
                 (cmd == "scrawl" && editor.queryCommandState("scrawl") == -1) ||
-                  cmd == "charts"
+                cmd == "charts"
             });
             editorui.buttons[cmd] = ui;
-            editor.addListener("selectionchange", function() {
+            editor.addListener("selectionchange", function () {
               //只存在于右键菜单而无工具栏按钮的ui不需要检测状态
               var unNeedCheckState = { edittable: 1 };
               if (cmd in unNeedCheckState) return;
@@ -367,7 +378,7 @@
     })(p, dialogBtns[p]);
   }
 
-  editorui.snapscreen = function(editor, iframeUrl, title) {
+  editorui.snapscreen = function (editor, iframeUrl, title) {
     title =
       editor.options.labelMap["snapscreen"] ||
       editor.getLang("labelMap.snapscreen") ||
@@ -375,7 +386,7 @@
     var ui = new editorui.Button({
       className: "edui-for-snapscreen",
       title: title,
-      onclick: function() {
+      onclick: function () {
         editor.execCommand("snapscreen");
       },
       theme: editor.options.theme
@@ -396,7 +407,7 @@
             className: "edui-okbutton",
             label: editor.getLang("ok"),
             editor: editor,
-            onclick: function() {
+            onclick: function () {
               dialog.close(true);
             }
           },
@@ -404,7 +415,7 @@
             className: "edui-cancelbutton",
             label: editor.getLang("cancel"),
             editor: editor,
-            onclick: function() {
+            onclick: function () {
               dialog.close(false);
             }
           }
@@ -413,13 +424,13 @@
       dialog.render();
       editor.ui._dialogs["snapscreenDialog"] = dialog;
     }
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       ui.setDisabled(editor.queryCommandState("snapscreen") == -1);
     });
     return ui;
   };
 
-  editorui.insertcode = function(editor, list, title) {
+  editorui.insertcode = function (editor, list, title) {
     list = editor.options["insertcode"] || [];
     title =
       editor.options.labelMap["insertcode"] ||
@@ -427,12 +438,12 @@
       "";
     // if (!list.length) return;
     var items = [];
-    utils.each(list, function(key, val) {
+    utils.each(list, function (key, val) {
       items.push({
         label: key,
         value: val,
         theme: editor.options.theme,
-        renderLabelHtml: function() {
+        renderLabelHtml: function () {
           return (
             '<div class="edui-label %%-label" >' + (this.label || "") + "</div>"
           );
@@ -443,16 +454,16 @@
     var ui = new editorui.Combox({
       editor: editor,
       items: items,
-      onselect: function(t, index) {
+      onselect: function (t, index) {
         editor.execCommand("insertcode", this.items[index].value);
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       },
       title: title,
       initValue: title,
       className: "edui-for-insertcode",
-      indexByValue: function(value) {
+      indexByValue: function (value) {
         if (value) {
           for (var i = 0, ci; (ci = this.items[i]); i++) {
             if (ci.value.indexOf(value) != -1) return i;
@@ -463,7 +474,7 @@
       }
     });
     editorui.buttons["insertcode"] = ui;
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       if (!uiReady) {
         var state = editor.queryCommandState("insertcode");
         if (state == -1) {
@@ -483,7 +494,7 @@
     });
     return ui;
   };
-  editorui.fontfamily = function(editor, list, title) {
+  editorui.fontfamily = function (editor, list, title) {
     list = editor.options["fontfamily"] || [];
     title =
       editor.options.labelMap["fontfamily"] ||
@@ -492,12 +503,12 @@
     if (!list.length) return;
     for (var i = 0, ci, items = []; (ci = list[i]); i++) {
       var langLabel = editor.getLang("fontfamily")[ci.name] || "";
-      (function(key, val) {
+      (function (key, val) {
         items.push({
           label: key,
           value: val,
           theme: editor.options.theme,
-          renderLabelHtml: function() {
+          renderLabelHtml: function () {
             return (
               '<div class="edui-label %%-label" style="font-family:' +
               utils.unhtml(this.value) +
@@ -512,16 +523,16 @@
     var ui = new editorui.Combox({
       editor: editor,
       items: items,
-      onselect: function(t, index) {
+      onselect: function (t, index) {
         editor.execCommand("FontFamily", this.items[index].value);
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       },
       title: title,
       initValue: title,
       className: "edui-for-fontfamily",
-      indexByValue: function(value) {
+      indexByValue: function (value) {
         if (value) {
           for (var i = 0, ci; (ci = this.items[i]); i++) {
             if (ci.value.indexOf(value) != -1) return i;
@@ -532,7 +543,7 @@
       }
     });
     editorui.buttons["fontfamily"] = ui;
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       if (!uiReady) {
         var state = editor.queryCommandState("FontFamily");
         if (state == -1) {
@@ -549,7 +560,7 @@
     return ui;
   };
 
-  editorui.fontsize = function(editor, list, title) {
+  editorui.fontsize = function (editor, list, title) {
     title =
       editor.options.labelMap["fontsize"] ||
       editor.getLang("labelMap.fontsize") ||
@@ -563,7 +574,7 @@
         label: size,
         value: size,
         theme: editor.options.theme,
-        renderLabelHtml: function() {
+        renderLabelHtml: function () {
           return (
             '<div class="edui-label %%-label" style="line-height:1;font-size:' +
             this.value +
@@ -579,16 +590,16 @@
       items: items,
       title: title,
       initValue: title,
-      onselect: function(t, index) {
+      onselect: function (t, index) {
         editor.execCommand("FontSize", this.items[index].value);
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       },
       className: "edui-for-fontsize"
     });
     editorui.buttons["fontsize"] = ui;
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       if (!uiReady) {
         var state = editor.queryCommandState("FontSize");
         if (state == -1) {
@@ -602,7 +613,7 @@
     return ui;
   };
 
-  editorui.paragraph = function(editor, list, title) {
+  editorui.paragraph = function (editor, list, title) {
     title =
       editor.options.labelMap["paragraph"] ||
       editor.getLang("labelMap.paragraph") ||
@@ -615,7 +626,7 @@
         value: i,
         label: list[i] || editor.getLang("paragraph")[i],
         theme: editor.options.theme,
-        renderLabelHtml: function() {
+        renderLabelHtml: function () {
           return (
             '<div class="edui-label %%-label"><span class="edui-for-' +
             this.value +
@@ -632,15 +643,15 @@
       title: title,
       initValue: title,
       className: "edui-for-paragraph",
-      onselect: function(t, index) {
+      onselect: function (t, index) {
         editor.execCommand("Paragraph", this.items[index].value);
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       }
     });
     editorui.buttons["paragraph"] = ui;
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       if (!uiReady) {
         var state = editor.queryCommandState("Paragraph");
         if (state == -1) {
@@ -661,7 +672,7 @@
   };
 
   //自定义标题
-  editorui.customstyle = function(editor) {
+  editorui.customstyle = function (editor) {
     var list = editor.options["customstyle"] || [],
       title =
         editor.options.labelMap["customstyle"] ||
@@ -669,8 +680,8 @@
         "";
     if (!list.length) return;
     var langCs = editor.getLang("customstyle");
-    for (var i = 0, items = [], t; (t = list[i++]); ) {
-      (function(t) {
+    for (var i = 0, items = [], t; (t = list[i++]);) {
+      (function (t) {
         var ck = {};
         ck.label = t.label ? t.label : langCs[t.name];
         ck.style = t.style;
@@ -680,7 +691,7 @@
           label: ck.label,
           value: ck,
           theme: editor.options.theme,
-          renderLabelHtml: function() {
+          renderLabelHtml: function () {
             return (
               '<div class="edui-label %%-label">' +
               "<" +
@@ -706,14 +717,14 @@
       title: title,
       initValue: title,
       className: "edui-for-customstyle",
-      onselect: function(t, index) {
+      onselect: function (t, index) {
         editor.execCommand("customstyle", this.items[index].value);
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       },
-      indexByValue: function(value) {
-        for (var i = 0, ti; (ti = this.items[i++]); ) {
+      indexByValue: function (value) {
+        for (var i = 0, ti; (ti = this.items[i++]);) {
           if (ti.label == value) {
             return i - 1;
           }
@@ -722,7 +733,7 @@
       }
     });
     editorui.buttons["customstyle"] = ui;
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       if (!uiReady) {
         var state = editor.queryCommandState("customstyle");
         if (state == -1) {
@@ -741,7 +752,7 @@
     });
     return ui;
   };
-  editorui.inserttable = function(editor, iframeUrl, title) {
+  editorui.inserttable = function (editor, iframeUrl, title) {
     title =
       editor.options.labelMap["inserttable"] ||
       editor.getLang("labelMap.inserttable") ||
@@ -750,34 +761,34 @@
       editor: editor,
       title: title,
       className: "edui-for-inserttable",
-      onpicktable: function(t, numCols, numRows) {
+      onpicktable: function (t, numCols, numRows) {
         editor.execCommand("InsertTable", {
           numRows: numRows,
           numCols: numCols,
           border: 1
         });
       },
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         this.showPopup();
       }
     });
     editorui.buttons["inserttable"] = ui;
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       ui.setDisabled(editor.queryCommandState("inserttable") == -1);
     });
     return ui;
   };
 
-  editorui.lineheight = function(editor) {
+  editorui.lineheight = function (editor) {
     var val = editor.options.lineheight || [];
     if (!val.length) return;
-    for (var i = 0, ci, items = []; (ci = val[i++]); ) {
+    for (var i = 0, ci, items = []; (ci = val[i++]);) {
       items.push({
         //todo:写死了
         label: ci,
         value: ci,
         theme: editor.options.theme,
-        onclick: function() {
+        onclick: function () {
           editor.execCommand("lineheight", this.value);
         }
       });
@@ -787,16 +798,16 @@
       className: "edui-for-lineheight",
       title:
         editor.options.labelMap["lineheight"] ||
-          editor.getLang("labelMap.lineheight") ||
-          "",
+        editor.getLang("labelMap.lineheight") ||
+        "",
       items: items,
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         var value = editor.queryCommandValue("LineHeight") || this.value;
         editor.execCommand("LineHeight", value);
       }
     });
     editorui.buttons["lineheight"] = ui;
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       var state = editor.queryCommandState("LineHeight");
       if (state == -1) {
         ui.setDisabled(true);
@@ -811,17 +822,17 @@
   };
 
   var rowspacings = ["top", "bottom"];
-  for (var r = 0, ri; (ri = rowspacings[r++]); ) {
-    (function(cmd) {
-      editorui["rowspacing" + cmd] = function(editor) {
+  for (var r = 0, ri; (ri = rowspacings[r++]);) {
+    (function (cmd) {
+      editorui["rowspacing" + cmd] = function (editor) {
         var val = editor.options["rowspacing" + cmd] || [];
         if (!val.length) return null;
-        for (var i = 0, ci, items = []; (ci = val[i++]); ) {
+        for (var i = 0, ci, items = []; (ci = val[i++]);) {
           items.push({
             label: ci,
             value: ci,
             theme: editor.options.theme,
-            onclick: function() {
+            onclick: function () {
               editor.execCommand("rowspacing", this.value, cmd);
             }
           });
@@ -831,17 +842,17 @@
           className: "edui-for-rowspacing" + cmd,
           title:
             editor.options.labelMap["rowspacing" + cmd] ||
-              editor.getLang("labelMap.rowspacing" + cmd) ||
-              "",
+            editor.getLang("labelMap.rowspacing" + cmd) ||
+            "",
           items: items,
-          onbuttonclick: function() {
+          onbuttonclick: function () {
             var value =
               editor.queryCommandValue("rowspacing", cmd) || this.value;
             editor.execCommand("rowspacing", value, cmd);
           }
         });
         editorui.buttons[cmd] = ui;
-        editor.addListener("selectionchange", function() {
+        editor.addListener("selectionchange", function () {
           var state = editor.queryCommandState("rowspacing", cmd);
           if (state == -1) {
             ui.setDisabled(true);
@@ -858,11 +869,11 @@
   }
   //有序，无序列表
   var lists = ["insertorderedlist", "insertunorderedlist"];
-  for (var l = 0, cl; (cl = lists[l++]); ) {
-    (function(cmd) {
-      editorui[cmd] = function(editor) {
+  for (var l = 0, cl; (cl = lists[l++]);) {
+    (function (cmd) {
+      editorui[cmd] = function (editor) {
         var vals = editor.options[cmd],
-          _onMenuClick = function() {
+          _onMenuClick = function () {
             editor.execCommand(cmd, this.value);
           },
           items = [];
@@ -879,13 +890,13 @@
           className: "edui-for-" + cmd,
           title: editor.getLang("labelMap." + cmd) || "",
           items: items,
-          onbuttonclick: function() {
+          onbuttonclick: function () {
             var value = editor.queryCommandValue(cmd) || this.value;
             editor.execCommand(cmd, value);
           }
         });
         editorui.buttons[cmd] = ui;
-        editor.addListener("selectionchange", function() {
+        editor.addListener("selectionchange", function () {
           var state = editor.queryCommandState(cmd);
           if (state == -1) {
             ui.setDisabled(true);
@@ -901,7 +912,7 @@
     })(cl);
   }
 
-  editorui.fullscreen = function(editor, title) {
+  editorui.fullscreen = function (editor, title) {
     title =
       editor.options.labelMap["fullscreen"] ||
       editor.getLang("labelMap.fullscreen") ||
@@ -910,7 +921,7 @@
       className: "edui-for-fullscreen",
       title: title,
       theme: editor.options.theme,
-      onclick: function() {
+      onclick: function () {
         if (editor.ui) {
           editor.ui.setFullScreen(!editor.ui.isFullScreen());
         }
@@ -918,7 +929,7 @@
       }
     });
     editorui.buttons["fullscreen"] = ui;
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       var state = editor.queryCommandState("fullscreen");
       ui.setDisabled(state == -1);
       ui.setChecked(editor.ui.isFullScreen());
@@ -927,68 +938,68 @@
   };
 
   // 表情
-  editorui["emotion"] = function(editor, iframeUrl) {
+  editorui["emotion"] = function (editor, iframeUrl) {
     var cmd = "emotion";
     var ui = new editorui.MultiMenuPop({
       title:
         editor.options.labelMap[cmd] ||
-          editor.getLang("labelMap." + cmd + "") ||
-          "",
+        editor.getLang("labelMap." + cmd + "") ||
+        "",
       editor: editor,
       className: "edui-for-" + cmd,
       iframeUrl: editor.ui.mapUrl(
         iframeUrl ||
-          (editor.options.iframeUrlMap || {})[cmd] ||
-          iframeUrlMap[cmd]
+        (editor.options.iframeUrlMap || {})[cmd] ||
+        iframeUrlMap[cmd]
       )
     });
     editorui.buttons[cmd] = ui;
 
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       ui.setDisabled(editor.queryCommandState(cmd) == -1);
     });
     return ui;
   };
 
-  editorui.autotypeset = function(editor) {
+  editorui.autotypeset = function (editor) {
     var ui = new editorui.AutoTypeSetButton({
       editor: editor,
       title:
         editor.options.labelMap["autotypeset"] ||
-          editor.getLang("labelMap.autotypeset") ||
-          "",
+        editor.getLang("labelMap.autotypeset") ||
+        "",
       className: "edui-for-autotypeset",
-      onbuttonclick: function() {
+      onbuttonclick: function () {
         editor.execCommand("autotypeset");
       }
     });
     editorui.buttons["autotypeset"] = ui;
-    editor.addListener("selectionchange", function() {
+    editor.addListener("selectionchange", function () {
       ui.setDisabled(editor.queryCommandState("autotypeset") == -1);
     });
     return ui;
   };
 
   /* 简单上传插件 */
-  editorui["simpleupload"] = function(editor) {
+  editorui["simpleupload"] = function (editor) {
     var name = "simpleupload",
       ui = new editorui.Button({
         className: "edui-for-" + name,
         title:
           editor.options.labelMap[name] ||
-            editor.getLang("labelMap." + name) ||
-            "",
-        onclick: function() {},
+          editor.getLang("labelMap." + name) ||
+          "",
+        onclick: function () { },
         theme: editor.options.theme,
         showText: false
       });
     editorui.buttons[name] = ui;
-    editor.addListener("ready", function() {
+    editor.addListener("ready", function () {
       var b = ui.getDom("body"),
         iconSpan = b.children[0];
       editor.fireEvent("simpleuploadbtnready", iconSpan);
     });
-    editor.addListener("selectionchange", function(type, causeByUi, uiReady) {
+    editor.addListener("selectionchange", function (type, causeByUi, uiReady) {
       var state = editor.queryCommandState(name);
       if (state == -1) {
         ui.setDisabled(true);
