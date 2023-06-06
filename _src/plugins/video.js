@@ -58,24 +58,34 @@ UE.plugins["video"] = function () {
       case "video":
         var ext = url.substr(url.lastIndexOf(".") + 1);
         if (ext == "ogv") ext = "ogg";
-        str =
-          "<video webkit-playsinline playsinline preload='none' width='100%' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
-          (id ? ' id="' + id + '"' : "") +
-          (poster ? ' poster="' + poster + '"' : "") +
-          ' class="' +
-          classname +
-          ' video-js" ' +
-          (align ? ' style="float:' + align + '"' : "") +
-          //' controls preload="none" ' +
-          //width +
-          //'" height="' +
-          //height +
-          '" src="' +
-          url +
-          '" data-setup="{}">' +
-          '<source src="' +
-          url +
-          '" type="video/mp4" />video</video>  <br/> ';
+        str = '';
+        if (ext == 'm3u8') {
+          str = '<video webkit-playsinline playsinline preload="none" width="100%" ' + (id ? ' id="' + id + '"' : '') + ' class="' + classname + ' editor-video-js" controls="controls" x-webkit-airplay="allow" x5-video-player-type="h5-page" '
+            + (align ? ' style="float:' + align + '"' : '')
+            + (poster ? ' poster="' + poster + '"' : "")
+            + ' src="' + url + '" presrc="' + url + '">video</video><br/> ';
+        }
+        else {
+          str = "<video webkit-playsinline playsinline preload='none' width='100%' controls='controls' x-webkit-airplay='allow' x5-video-player-type='h5-page' " +
+            (id ? ' id="' + id + '"' : "") +
+            (poster ? ' poster="' + poster + '"' : "") +
+            ' class="' +
+            classname +
+            ' video-js" ' +
+            (align ? ' style="float:' + align + '"' : "") +
+            //' controls preload="none" ' +
+            //width +
+            //'" height="' +
+            //height +
+            '" src="' +
+            url +
+            '" data-setup="{}">' +
+            '<source src="' +
+            url +
+            '" type="video/mp4" />video</video>  <br/> ';
+        }
+
+
         break;
     }
     return str;
@@ -196,7 +206,7 @@ UE.plugins["video"] = function () {
       }
 
       var html = [],
-        id = "tmpVedio",
+        id = "tmpVedio_" + (new Date().getTime()) + "_",
         cl;
       for (var i = 0, vi, len = videoObjs.length; i < len; i++) {
         vi = videoObjs[i];
@@ -224,7 +234,6 @@ UE.plugins["video"] = function () {
       //     rng.selectNode(img).select();
       //     me.execCommand("imagefloat", videoObjs[i].align);
       //   }
-
       me.fireEvent("afterinsertvideo", videoObjs);
     },
     queryCommandState: function () {
