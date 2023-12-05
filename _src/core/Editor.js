@@ -596,6 +596,7 @@
       //挂接快捷键
       me._bindshortcutKeys();
       me.isReady = 1;
+      window.zbid && me.execCommand('serverparam', 'zbid', window.zbid);
       me.fireEvent("ready");
       options.onready && options.onready.call(me);
       if (!browser.ie9below) {
